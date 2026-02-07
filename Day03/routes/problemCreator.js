@@ -1,0 +1,12 @@
+const express= require("express");
+const problemRouter = express.Router();
+
+
+problemRouter.post("/create",createProblem);
+problemRouter.patch("'/:id",updateProblem);
+problemRouter.delete("'/:id",deleteProblem);
+
+problemRouter.get("/:id",getProblem);
+problemRouter.get("/",getAllProblem);
+problemRouter.get("/user",solvedProblem)
+
