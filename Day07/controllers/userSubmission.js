@@ -1,6 +1,6 @@
 const Problem = require("../models/problem");
 const Submission = require("../models/submission");
-const {getLanguageById,submitBatch} =require("../utils/problemUtillity")
+const {getLanguageById,submitBatch,submitToken} =require("../utils/problemUtillity")
 
 const submitCode =async (req,res)=>{
 
@@ -16,7 +16,7 @@ const submitCode =async (req,res)=>{
         }
 
         //Kya submission ko store kar du pahle
-        const problem= await Problem.find({_id:problemId});
+        const problem= await Problem.findById(problemId);
         const submittedResult = await Submission.create({
             userId,
             problemId,
