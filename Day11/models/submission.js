@@ -1,0 +1,56 @@
+const mongoose =require('mongoose')
+const {Schema}=mongoose;
+
+const submissionSchema = new Schema({
+    userId:{
+        type:Schema.Types.ObjectId,
+        ref:'user',
+        required:true
+    },
+    problemId:{
+        type:Schema.Types.ObjectId,
+        ref:'problem',
+        required:true
+    },
+    code:{
+        type:String,
+        required:true
+    },
+    language:{
+        type:String,
+        required:true,
+        enum:['java','javascript','c++']
+    },
+    status:{
+        type:String,
+        enum:['pending','accepted','wrong','error'],
+        default:'pending'
+    },
+    runtime:{
+        type:Number, //miliseconds
+        default:0
+    },
+    memory:{
+        type:Number, //kb
+        default:0
+    },
+    errormessage:{
+        type:String,
+        default:''
+    }, 
+    testcasespassed:{
+        type:Number,
+        default:0
+    },
+    testcasestotal:{
+        type:Number,
+        default:0
+    }
+    
+},{timestamps:true})
+
+// indexing for fast search
+submissionSchema.index({userId:1,problemId:1});
+
+const Submission=mongoose.model('submission',submissionSchema);
+module.exports=Submission;
